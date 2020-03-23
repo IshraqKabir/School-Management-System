@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Student Name : {{ user.student.first_name }} {{ user.student.last_name }} <br>
+    <form action="{% url 'add_courses' %}" method="POST"> {% csrf_token %}
+        {% for course in courses %}
+            <label for="{{ course.course_department.title }}-{{ course.course_code }}">{{ course.course_department.title }}-{{ course.course_code }}</label>
+            <input type="checkbox" name="{{ course.course_department.title }}-{{ course.course_code }}"><br>
+        {% endfor %}
+        <input type="submit" value="Add">    
+    </form>
+{% endblock %}

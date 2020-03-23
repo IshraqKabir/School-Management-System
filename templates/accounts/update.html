@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'update' %}" method="POST"> {% csrf_token %}
+        <p>
+            <label for="username">Username : </label>
+            <input type="text" name="username" value="{{ user.username}}" required>
+        </p>
+        <p>
+            <label for="email">Email : </label>
+            <input type="text" name="email" value="{{ user.email}}" required>
+        </p>
+        <p>
+            <label for="first_name">First Name : </label>
+            <input type="text" name="first_name" value="{{ user.student.first_name}}" required>
+        </p>
+        <p>
+            <label for="last_name">Last Name : </label>
+            <input type="text" name="last_name" value="{{ user.student.last_name}}" required>
+        </p>
+        <p>
+            <label for="student_roll">Student Roll : </label>
+            <input type="text" name="student_roll" value="{{ user.student.student_roll}}" required>
+        </p>
+        <input type="submit" value="Update">
+    </form>
+{% endblock %}
