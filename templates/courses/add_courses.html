@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    Student Name : {{ user.student.first_name }} {{ user.student.last_name }} <br>
+    {{ user_type|title }} Name : 
+        {% if user_type == "Student" %}
+            {{ user.student.first_name }} {{ user.student.last_name }}
+        {% else %}
+            {{ user.teacher.first_name }} {{ user.teacher.last_name }}
+        {% endif %}
+            <br>
     <form action="{% url 'add_courses' %}" method="POST"> {% csrf_token %}
         {% for course in courses %}
+            <!-- for loop for rendering the courses not attended -->
+            {% if course in user.student.courses.all %}
+
+            {% else %}
             <label for="{{ course.course_department.title }}-{{ course.course_code }}">{{ course.course_department.title }}-{{ course.course_code }}</label>
             <input type="checkbox" name="{{ course.course_department.title }}-{{ course.course_code }}"><br>
+            {% endif %}
         {% endfor %}
         <input type="submit" value="Add">    
     </form>

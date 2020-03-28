@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   <p>
+    User : {{ request.user.username }}
+   </p>
+    <p>
+        Course List : 
+        <ol>
+            {% for course in added_courses %}
+                <li>
+                    {{ course.title }}
+                    
+                </li>
+            {% endfor %}
+        </ol>
+    </p>
+    <a href="{% url 'profile' %}">User Profile</a>
+{% endblock %}

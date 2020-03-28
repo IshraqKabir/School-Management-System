@@ -4,23 +4,26 @@ from django.contrib.auth.models import User
 from students.models import Student
 from .forms import RegisterForm
 from students.forms import StudentRegisterForm
+from teachers.forms import TeacherRegisterForm
 from django.views.generic.edit import UpdateView
 from courses.models import Course
 
-def register(request):
+def register_student(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         student_form = StudentRegisterForm(request.POST)
 
         if form.is_valid() and student_form.is_valid():
+            
             user = form.save()
+            user.save()
 
             student = student_form.save(commit=False)
             student.user = user
             student.save()
             return redirect('login')
         else:
-            return redirect('register')
+            return redirect('register_student')
 
     else:
         form = RegisterForm()
@@ -32,11 +35,54 @@ def register(request):
             'student_form': student_form
         }
 
-        return render(request, 'accounts/register.html', context)
+        return render(request, 'accounts/register_student.html', context)
+
+def register_teacher(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        teacher_form = TeacherRegisterForm(request.POST)
+
+        if form.is_valid() and teacher_form.is_valid():
+            user = form.save()
+            user.save()
+
+            teacher = teacher_form.save(commit=False)
+            teacher.user = user
+            teacher.save()
+            return redirect('login')
+        else:
+            return redirect('register_teacher')
+
+    else:
+        form = RegisterForm()
+        teacher_form = TeacherRegisterForm(request.POST)
+
+
+        context = {
+            'form': form,
+            'teacher_form': teacher_form
+        }
+
+        return render(request, 'accounts/register_teacher.html', context)
 
 
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    user_type = ""
+    try: 
+        user_type = request.user.teacher.user_type
+    except:
+        pass
+    try:
+        user_type = request.user.student.user_type
+    except:
+        pass
+
+    context = {
+        'user_type': user_type
+    }
+    
+    return render(request, 'accounts/profile.html', context)
+
 
 def logout(request):
     if request.method == 'POST':
@@ -55,8 +101,8 @@ def update(request):
             request.user.student.first_name = request.POST['first_name']
         if request.POST['last_name'] != '':
             request.user.student.last_name = request.POST['last_name']
-        if request.POST['student_roll'] != '':
-            request.user.student.student_roll = request.POST['student_roll']
+        if request.POST['teacher_roll'] != '':
+            request.user.student.student_roll = request.POST['teacher_roll']
 
         request.user.save()
         request.user.student.save()

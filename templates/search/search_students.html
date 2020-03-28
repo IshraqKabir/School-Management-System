@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form action="{% url 'search_results_students' %}" method="POST"> {% csrf_token %}
+        First Name : <input type="text" name="first_name">
+        Last Name : <input type="text" name="last_name">
+        Student Roll : <input type="text" name="student_roll">
+        <input type="Submit" value="Search">
+    </form>
+
+{% endblock %}

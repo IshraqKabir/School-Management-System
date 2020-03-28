@@ -1,0 +1,28 @@
+
+            
+            {% if profile.profilename %}
+            profilename : {{ profile.profilename }} <br>
+            {% endif %}
+            {% if profile.student.first_name %}
+            First Name : {{ profile.student.first_name }} <br>
+            {% endif %}
+            {% if profile.student.last_name %}
+            Last Name : {{ profile.student.last_name }} <br>
+            {% endif %}
+            {% if profile.student.student_roll %}
+            Student Roll : {{ profile.student.student_roll }} <br>
+            {% endif %}
+            {% if profile.email %}
+            email : {{ profile.email }} <br>
+            {% endif %}
+            
+        <ol>    
+        
+                {% for course in profile.student.courses.all %}
+                    <li>{{ course.title }}</li>
+                {% endfor %}
+    
+    
+    </ol>
+    <a href="{% url 'course_list' %}">Course List</a><br>
+    <br>

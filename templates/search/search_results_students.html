@@ -1,0 +1,24 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+    Search Result :
+
+    {% if students %}
+        <ol>
+            {% for student in students %}
+                <li>
+                    <a href="{% url 'profile_of_others' student.user.id %}">
+                        {{ student.first_name }} {{ student.last_name }}
+                    </a>
+                    
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        Query Did Not Match
+    {% endif %}
+    
+
+{% endblock %}

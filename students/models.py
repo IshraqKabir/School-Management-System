@@ -8,6 +8,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100)
     student_roll = models.IntegerField()
     courses = models.ManyToManyField(Course)
+    user_type = "student"
     
-    def __str__self():
-        return self.student_roll
+    def __str__(self):
+        return self.user.username

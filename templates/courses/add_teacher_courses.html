@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Teacher : {{ teacher.first_name}} {{ teacher.last_name }}
+    <br>
+    <form action="{% url 'add_teacher_course' teacher.teacher_roll %}" method="POST"> {% csrf_token %}
+    <select>
+        {% for course in all_courses %}
+            <option value="{{ course.title }}" name="{{ course.title }}" name="{{ course.title }}">{{ course.title }}</option>
+        {% endfor %}
+
+    </select>
+    <select>
+        {% for key, value in timing_choices %}
+            <option value="{{ key }}" name="{{ value }}">{{ value }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit">
+    </form>
+{% endblock %}

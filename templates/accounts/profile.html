@@ -2,35 +2,13 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    {{ user.username }} logged in <br>
-    {% if user.username %}
-    Username : {{ user.username }} <br>
-    {% endif %}
-    {% if user.student.first_name %}
-    First Name : {{ user.student.first_name }} <br>
-    {% endif %}
-    {% if user.student.last_name %}
-    Last Name : {{ user.student.last_name }} <br>
-    {% endif %}
-    {% if user.student.student_roll %}
-    Student Roll : {{ user.student.student_roll }} <br>
-    {% endif %}
-    {% if user.email %}
-    email : {{ user.email }} <br>
-    {% endif %}
-    
-<ol>    
-   
-        {% for course in user.student.courses.all %}
-            <li>{{ course.title }}</li>
-        {% endfor %}
-      
+        {% if user_type == 'student' %}
+                {% include 'profile/profile_student.html' %}
+            
+        {% else %}
+            {% include 'profile/profile_teacher.html' %}
+        {% endif %}
+        <a href="{% url 'logout' %}">Logout</a>
 
-       
-    </ol>
-    <a href="{% url 'add_courses' %}">Add Courses?</a><br>
-    <a href="{% url 'update' %}">Update?</a>
-    <br>
-    <a href="{% url 'logout' %}">Logout</a>
     {% endif %}
 {% endblock %}
