@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # own apps
     'accounts',
     'students',
@@ -45,7 +44,13 @@ INSTALLED_APPS = [
     'pages',
     'courses',
     'departments',
-    'search'
+    'search',
+    'batches',
+    'classes',
+    'days',
+    'timings',
+    'rooms'
+    
 ]
 
 MIDDLEWARE = [
@@ -85,7 +90,7 @@ WSGI_APPLICATION = 'school_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'school_management',
+        'NAME': 'new_school',
         'USER': 'postgres',
         'PASSWORD': 'adamjee131228',
         'HOST': 'localhost',
