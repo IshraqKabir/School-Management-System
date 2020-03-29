@@ -8,5 +8,6 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('search/', include('search.urls')),
     path('classes/', include('classes.urls')),
-        
+    path('batches/', include('batches.urls')),
+            
 ]

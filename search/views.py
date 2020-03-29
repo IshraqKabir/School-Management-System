@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from students.models import Student
 from teachers.models import Teacher
+from classes.models import Class
 
 def search_students(request):
     return render(request, 'search/search_students.html')
@@ -53,3 +54,42 @@ def search_results_teachers(request):
         'teachers': teacher_query
     }
     return render(request, 'search/search_results_teachers.html', context)
+
+
+def search_classes(request):
+    return render(request, 'search/search_classes.html')
+
+
+def search_results_classes(request):
+    class_query = Class.objects.all()
+    if request.method == 'POST':
+        course_title = request.POST['course_title']
+        teacher_username = request.POST['teacher_username']
+        teacher_roll = request.POST['teacher_roll']
+        course_day = request.POST['course_day']
+        class_timing = request.POST['timing']
+        batch = request.POST['batch']
+        room = request.POST['room']
+
+        class_query = Class.objects.all()
+
+        if course_title:
+            # print('it is none')
+            class_query = class_query.filter(course__title__icontains=course_title)
+        elif teacher_username:
+            class_query = class_query.filter(teacher__user__username__iexact=teacher_username)
+        elif teacher_roll:
+            class_query = class_query.filter(teacher__teacher_roll__icontains=teacher_roll)
+        elif course_day:
+            class_query = class_query.filter(day__name__icontains=course_day)
+        elif batch:
+            class_query = class_query.filter(teacher__batch__icontains=batch)
+        elif class_timing:
+            class_query = class_query.filter(timing__time__iexact=class_timing)
+        elif room:
+            class_query = class_query.filter(room__number__iexact=room)
+        
+        context = {
+            'classes': class_query
+        }
+        return render(request, 'search/search_results_classes.html', context)

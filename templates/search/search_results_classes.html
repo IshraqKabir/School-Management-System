@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Search Result :
+
+    {% if classes %}
+        <ol>
+            {% for class in classes %}
+                <li>
+                    <a href="#">
+                        {{ class.course.title }} |{{ class.teacher.user.username }} |{{ class.day.name }} |{{ class.timing.time }} |{{ class.room.name }} |{{ class.room.number }}
+                    </a>
+                    
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        Query Did Not Match
+    {% endif %}
+    
+
+{% endblock %}

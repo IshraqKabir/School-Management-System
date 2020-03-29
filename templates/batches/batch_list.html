@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ol>
+        {% for batch in all_batches.all %}
+            <a href="{% url 'batch_class_list' batch.id %}">
+                <li>{{ batch.name }}</li>
+            </a>
+        {% endfor %}
+    </ol>
+{% endblock %}

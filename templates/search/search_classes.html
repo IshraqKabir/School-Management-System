@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form action="{% url 'search_results_classes' %}" method="POST"> {% csrf_token %}
+        Course Title : <input type="text" name="course_title">
+        Course Teacher Username: <input type="text" name="teacher_username">
+        Course Teacher: <input type="text" name="teacher_roll">
+        Course Day : <input type="text" name="course_day">
+        Course Timing : <input type="text" name="timing">
+        Batch : <input type="text" name="batch">
+        Room : <input type="text" name="room">
+        <input type="Submit" value="Search">
+    </form>
+
+{% endblock %}
+
+<!-- def search_results_students(request):
+    student_query = Student.objects.order_by('student_roll')
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        student_roll = request.POST['student_roll']
+    
+        if first_name is not None:
+            student_query = student_query.filter(first_name__icontains=first_name)
+    
+        if last_name is not None:
+            student_query = student_query.filter(last_name__icontains=last_name)
+    
+        if student_roll is not None:
+            student_query = student_query.filter(student_roll__icontains=student_roll)
+
+    context = {
+        'students': student_query
+    }
+    return render(request, 'search/search_results_students.html', context) -->

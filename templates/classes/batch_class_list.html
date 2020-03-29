@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ol>
+        {% for single_class in batch_classes %}
+            <li>{{ single_class.course.title }} - {{ single_class.teacher.first_name }} {{ single_class.teacher.last_name }} - {{ single_class.day.name }} - {{ single_class.timing.time }} - {{ single_class.batch.name }} - {{ single_class.room.name }} - {{ single_class.room.number }}</li>
+        {% endfor %}
+    </ol>
+{% endblock %}
