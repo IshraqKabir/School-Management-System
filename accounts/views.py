@@ -92,20 +92,39 @@ def logout(request):
 
 
 def update(request):
+    user_type = ""
+    try: 
+        user_type = request.user.teacher.user_type
+    except:
+        pass
+    try:
+        user_type = request.user.student.user_type
+    except:
+        pass
     if request.method == 'POST':
         if request.POST['username'] != '':
             request.user.username = request.POST['username']
         if request.POST['email'] != '':
             request.user.email = request.POST['email']
-        if request.POST['first_name'] != '':
-            request.user.student.first_name = request.POST['first_name']
-        if request.POST['last_name'] != '':
-            request.user.student.last_name = request.POST['last_name']
-        if request.POST['teacher_roll'] != '':
-            request.user.student.student_roll = request.POST['teacher_roll']
+        if user_type == 'student':
+            if request.POST['first_name'] != '':
+                request.user.student.first_name = request.POST['first_name']
+            if request.POST['last_name'] != '':
+                request.user.student.last_name = request.POST['last_name']
+            if request.POST['student_roll'] != '':
+                request.user.student_roll = request.POST['student_roll']
+            request.user.save()
+            request.user.student.save()
+        elif user_type == 'teacher':
+            if request.POST['first_name'] != '':
+                request.user.teacher.first_name = request.POST['first_name']
+            if request.POST['last_name'] != '':
+                request.user.teacher.last_name = request.POST['last_name']
+            if request.POST['teacher_roll'] != '':
+                request.user.teacher_roll = request.POST['teacher_roll']
+            request.user.save()
+            request.user.student.save()
 
-        request.user.save()
-        request.user.student.save()
         return redirect('profile')
     else:
         return render(request, 'accounts/update.html')
