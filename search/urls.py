@@ -5,7 +5,8 @@ from .views import (
     search_results_students, 
     search_results_teachers,
     search_classes,
-    search_results_classes
+    search_results_classes,
+    search_routine
 )
 urlpatterns = [
     path('students/', search_students, name="search_students"),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('search_results_students/', search_results_students, name="search_results_students"),
     path('search_results_teachers/', search_results_teachers, name="search_results_teachers"),
     path('search_results_classes/', search_results_classes, name="search_results_classes"),
+    path('search_routine/', search_routine, name="search_routine"),
 ]
 
 

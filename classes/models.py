@@ -15,6 +15,12 @@ class Class(models.Model):
     # timing = models.CharField(max_length=20, default="")
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.DO_NOTHING)
+    section_choices = (
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+    )
+    section = models.CharField(max_length=20, choices=section_choices, null=True)
 
     def __str__(self):
         return self.batch.name + '=>' + self.course.title

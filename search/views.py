@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from students.models import Student
 from teachers.models import Teacher
 from classes.models import Class
+from batches.models import Batch
+from timings.models import Timing
+from rooms.models import Room
+from departments.models import Department
 
 def search_students(request):
     return render(request, 'search/search_students.html')
@@ -93,3 +97,42 @@ def search_results_classes(request):
             'classes': class_query
         }
         return render(request, 'search/search_results_classes.html', context)
+
+
+
+def search_routine(request):
+    all_depts = Department.objects.all()
+    time_slots = Timing.objects.all().order_by('time')
+    all_classes = Class.objects.all()
+    all_rooms = Room.objects.all()
+
+    if request.method == 'POST':
+        dept_name = request.POST['dept_list']
+        searched_classes = Class.objects.filter(batch__dept__title__iexact=dept_name)
+        monday_classes = searched_classes.filter(day__name__icontains="Monday")
+        tuesday_classes = searched_classes.filter(day__name__icontains="Tuesday")
+        wednesday_classes = searched_classes.filter(day__name__icontains="Wednesday")
+        thursday_classes = searched_classes.filter(day__name__icontains="Thursday")
+        friday_classes = searched_classes.filter(day__name__icontains="Friday")
+        saturday_classes = searched_classes.filter(day__name__icontains="Saturday")
+        context = {
+            'all_depts': all_depts,
+            'searched_classes': searched_classes,
+            'monday_classes': monday_classes,
+            'tuesday_classes': tuesday_classes,
+            'wednesday_classes': wednesday_classes,
+            'thursday_classes': thursday_classes,
+            'friday_classes': friday_classes,
+            'saturday_classes': saturday_classes,
+            'all_classes': all_classes,
+            'time_slots': time_slots,
+            'all_rooms': all_rooms,
+            'dept_name': dept_name
+        }
+        return render(request, 'routine/search_routine.html', context)
+    else:
+        context = {
+            'all_depts': all_depts
+        }
+        return render(request, 'routine/search_routine.html', context)
+

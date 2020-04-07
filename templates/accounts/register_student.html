@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <form action="{% url 'register_student' %}" method="POST"> {% csrf_token %}
-        {{ form.as_p }}
-        {{ student_form.as_p }}
+        {{ form|crispy }}
+        {{ student_form|crispy}}
         <input type="submit" value="Register">
     </form>
 {% endblock %}

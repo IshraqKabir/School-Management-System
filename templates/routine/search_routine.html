@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display:flexbox;">
+    <div>
+    <form action="{% url 'search_routine' %}" method="POST"> {% csrf_token %}
+        <!-- <label for="">Departments:</label> -->
+        <select name="dept_list">
+            {% for dept in all_depts.all %}
+                <option>{{dept.title}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Search">
+    </form>
+    </div>
+{% if searched_classes %}
+</div>
+    <div class="container">
+        <h3>
+            Routine for {{dept_name}}
+        </h3>
+    </div>
+    <div class="table">
+        <!-- Monday -->
+        <div class="row" style="border:2px solid grey;">
+            <div class="col">Monday</div>
+                <div class="col">
+                    {% for room in all_rooms %}
+                        <div class="row">{{room.name}}   
+                                {% for class in monday_classes %}
+                                    {% if class.room.name == room.name %}
+                                        <div class="col">
+                                            <div>
+                                                {{ class.course.title}} ({{class.batch.name}})
+                                            </div>
+                                            {% if class.section %}
+                                            <div>
+                                                Section - {{class.section}}
+                                            </div>
+                                            {% endif %}
+                                            <div>
+                                                {{ class.timing.time}}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %} 
+                        </div> 
+                    {% endfor %}
+                </div>
+        </div>
+        <!-- Tuesday -->
+        <div class="row" style="border:2px solid grey;margin-top:5px;">
+            <div class="col">Tuesday</div>
+                <div class="col">
+                    {% for room in all_rooms %}
+                        <div class="row">{{room.name}}   
+                                {% for class in tuesday_classes %}
+                                    {% if class.room.name == room.name %}
+                                        <div class="col">
+                                            <div>
+                                                {{ class.course.title}} ({{class.batch.name}})
+                                            </div>
+                                            {% if class.section %}
+                                            <div>
+                                                Section - {{class.section}}
+                                            </div>
+                                            {% endif %}
+                                            <div>
+                                                {% if class.section %}
+                                                Sec-{{class.section}}{{ class.timing.time}}
+                                                {% else %}
+                                                    {{ class.timing.time}}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %} 
+                        </div> 
+                    {% endfor %}
+                </div>
+        </div>
+        <!-- Wednesday -->
+        <div class="row" style="border:2px solid grey;margin-top:5px;">
+            <div class="col">Wednesday</div>
+                <div class="col">
+                    {% for room in all_rooms %}
+                        <div class="row">{{room.name}}   
+                                {% for class in wednesday_classes %}
+                                    {% if class.room.name == room.name %}
+                                        <div class="col">
+                                            <div>
+                                                {{ class.course.title}} ({{class.batch.name}})
+                                            </div>
+                                            {% if class.section %}
+                                            <div>
+                                                Section - {{class.section}}
+                                            </div>
+                                            {% endif %}
+                                            <div>
+                                                {{ class.timing.time}}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %} 
+                        </div> 
+                    {% endfor %}
+                </div>
+        </div>
+        <!-- Thursday -->
+        <div class="row" style="border:2px solid grey;margin-top:5px;">
+            <div class="col">Thursday</div>
+                <div class="col">
+                    {% for room in all_rooms %}
+                        <div class="row">{{room.name}}   
+                                {% for class in thursday_classes %}
+                                    {% if class.room.name == room.name %}
+                                        <div class="col">
+                                            <div>
+                                                {{ class.course.title}} ({{class.batch.name}})
+                                            </div>
+                                            {% if class.section %}
+                                            <div>
+                                                Section - {{class.section}}
+                                            </div>
+                                            {% endif %}
+                                            <div>
+                                                {{ class.timing.time}}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %} 
+                        </div> 
+                    {% endfor %}
+                </div>
+        </div>
+        <!-- Friday -->
+        <div class="row" style="border:2px solid grey;margin-top:5px;">
+            <div class="col">Friday</div>
+                <div class="col">
+                    {% for room in all_rooms %}
+                        <div class="row">{{room.name}}   
+                                {% for class in friday_classes %}
+                                    {% if class.room.name == room.name %}
+                                        <div class="col">
+                                            <div>
+                                                {{ class.course.title}} ({{class.batch.name}})
+                                            </div>
+                                            {% if class.section %}
+                                            <div>
+                                                Section - {{class.section}}
+                                            </div>
+                                            {% endif %}
+                                            <div>
+                                                {{ class.timing.time}}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %} 
+                        </div> 
+                    {% endfor %}
+                </div>
+        </div>
+        <!-- Saturday -->
+        <div class="row" style="border:2px solid grey;margin-top:5px;">
+            <div class="col">Saturday</div>
+                <div class="col">
+                    {% for room in all_rooms %}
+                        <div class="row">{{room.name}}   
+                                {% for class in saturday_classes %}
+                                    {% if class.room.name == room.name %}
+                                        <div class="col">
+                                            <div>
+                                                {{ class.course.title}} ({{class.batch.name}})
+                                            </div>
+                                            {% if class.section %}
+                                            <div>
+                                                Section - {{class.section}}
+                                            </div>
+                                            {% endif %}
+                                            <div>
+                                                {{ class.timing.time}}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %} 
+                        </div> 
+                    {% endfor %}
+                </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

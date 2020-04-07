@@ -12,6 +12,7 @@ class Create_Class_Form(forms.ModelForm):
             'day',
             'timing',
             'batch',
+            'section',
             'room'
         ]
         widgets = {

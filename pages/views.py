@@ -2,7 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 def home(request):
-    return render(request, 'home.html')
+    x = "asdfasdf"
+    context = {
+        'x': x
+    }
+    return render(request, 'home.html', context)
 
 def profile_of_others(request, id):
     profile = User.objects.get(id=id)
