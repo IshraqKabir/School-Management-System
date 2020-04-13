@@ -1,29 +1,30 @@
 
-            {% if user.username %}
-            Username : {{ user.username }} <br>
+            {% if profile.profilename %}
+            profilename : {{ profile.profilename }} <br>
             {% endif %}
-            {% if user.teacher.first_name %}
-            First Name : {{ user.teacher.first_name }} <br>
+            {% if profile.teacher.first_name %}
+            First Name : {{ profile.teacher.first_name }} <br>
             {% endif %}
-            {% if user.teacher.last_name %}
-            Last Name : {{ user.teacher.last_name }} <br>
+            {% if profile.teacher.last_name %}
+            Last Name : {{ profile.teacher.last_name }} <br>
             {% endif %}
-            {% if user.teacher.teacher_roll %}
-            teacher Roll : {{ user.teacher.teacher_roll }} <br>
+            {% if profile.teacher.teacher_roll %}
+            teacher Roll : {{ profile.teacher.teacher_roll }} <br>
             {% endif %}
-            {% if user.email %}
-            email : {{ user.email }} <br>
+            {% if profile.email %}
+            email : {{ profile.email }} <br>
             {% endif %}
             
         <ol>    
         
-                {% for course in user.teacher.courses.all %}
+                {% for course in profile.teacher.courses.all %}
                     <li>{{ course.title }}</li>
                 {% endfor %}
     
     
     </ol>
-    <a href="{% url 'course_list' %}">Course List</a><br>
-    <a href="{% url 'add_courses' %}">Add Courses?</a><br>
-    <a href="{% url 'update' %}">Update?</a>
+    <div>
+        
+        <a href="{% url 'update' %}">Update?</a>
+    </div>
     <br>

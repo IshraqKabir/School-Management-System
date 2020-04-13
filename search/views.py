@@ -75,6 +75,9 @@ def search_results_classes(request):
         batch = request.POST['batch']
         room = request.POST['room']
 
+        # batch_instance = Batch.objects.filter(id=batch)
+
+        
         class_query = Class.objects.all()
 
         if course_title:
@@ -87,7 +90,7 @@ def search_results_classes(request):
         elif course_day:
             class_query = class_query.filter(day__name__icontains=course_day)
         elif batch:
-            class_query = class_query.filter(teacher__batch__icontains=batch)
+            class_query = class_query.filter(batch__name__icontains=batch)
         elif class_timing:
             class_query = class_query.filter(timing__time__iexact=class_timing)
         elif room:
@@ -109,12 +112,12 @@ def search_routine(request):
     if request.method == 'POST':
         dept_name = request.POST['dept_list']
         searched_classes = Class.objects.filter(batch__dept__title__iexact=dept_name)
-        monday_classes = searched_classes.filter(day__name__icontains="Monday")
-        tuesday_classes = searched_classes.filter(day__name__icontains="Tuesday")
-        wednesday_classes = searched_classes.filter(day__name__icontains="Wednesday")
-        thursday_classes = searched_classes.filter(day__name__icontains="Thursday")
-        friday_classes = searched_classes.filter(day__name__icontains="Friday")
-        saturday_classes = searched_classes.filter(day__name__icontains="Saturday")
+        monday_classes = searched_classes.filter(day__name__icontains="Monday").order_by('timing__time')
+        tuesday_classes = searched_classes.filter(day__name__icontains="Tuesday").order_by('timing__time')
+        wednesday_classes = searched_classes.filter(day__name__icontains="Wednesday").order_by('timing__time')
+        thursday_classes = searched_classes.filter(day__name__icontains="Thursday").order_by('timing__time')
+        friday_classes = searched_classes.filter(day__name__icontains="Friday").order_by('timing__time')
+        saturday_classes = searched_classes.filter(day__name__icontains="Saturday").order_by('timing__time')
         context = {
             'all_depts': all_depts,
             'searched_classes': searched_classes,

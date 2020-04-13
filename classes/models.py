@@ -24,3 +24,7 @@ class Class(models.Model):
 
     def __str__(self):
         return self.batch.name + '=>' + self.course.title
+
+    class Meta:
+        verbose_name = 'Class'
+        verbose_name_plural = 'Classes'
